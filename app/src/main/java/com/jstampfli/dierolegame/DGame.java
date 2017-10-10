@@ -59,12 +59,15 @@ public class DGame extends AppCompatActivity {
 
     public void onClickFifty(View view){
         try{
-            rolled=Integer.parseInt(dNumPick.getText().toString());
+            picked=Integer.parseInt(dNumPick.getText().toString());
+            rolled=Integer.parseInt(dNum.getText().toString());
             if(rolled>10){
                 rolled=10;
                 dNum.setText(String.valueOf(rolled));
-                picked=rolled-1;
-                dNumPick.setText(String.valueOf(picked));
+                if(picked>=rolled){
+                    picked=rolled-1;
+                    dNumPick.setText(String.valueOf(picked));
+                }
             }
         }
         catch(NumberFormatException e){
