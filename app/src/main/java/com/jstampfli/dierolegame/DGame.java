@@ -1,5 +1,6 @@
 package com.jstampfli.dierolegame;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,7 @@ public class DGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dgame);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dSpace= (TextView) findViewById(R.id.textView);
         dNum = (EditText) findViewById(R.id.dice);
@@ -61,7 +63,7 @@ public class DGame extends AppCompatActivity {
             dSpace.setText(dSpace.getText()+String.valueOf(random)+" ");
             dValue.add(random);
         }
-        
+
         List<Integer> empty = Arrays.asList(new Integer[picked]);
         genPossiblities(dValue, picked, 0, empty);
         dSpace.setText(dSpace.getText()+": "+String.valueOf(highest));

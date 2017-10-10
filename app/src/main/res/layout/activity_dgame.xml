@@ -43,12 +43,12 @@
 
     <EditText
         android:id="@+id/dPick"
+        android:inputType="number"
         android:hint="How man dice should be picked?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/dice"
         android:layout_alignStart="@+id/dice"
         android:layout_below="@+id/textView"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:ems="10" />
 </RelativeLayout>
