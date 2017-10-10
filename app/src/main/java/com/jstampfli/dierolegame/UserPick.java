@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.jstampfli.dierolegame.DGame.dSpace;
+
 /**
  * Created by User1 on 10/8/2017.
  */
@@ -27,6 +29,7 @@ public class UserPick {
         }
         if(sum>highest){
             highest=sum;
+            dSpace.setText(dSpace.getText()+"\n\n"+String.valueOf(sList));
         }
 
     }

@@ -20,7 +20,7 @@ public class DGame extends AppCompatActivity {
 
     int rolled=10;
     int picked=5;
-    TextView dSpace;
+    static TextView dSpace;
     EditText dNum;
     EditText dNumPick;
     List<Integer> dValue = new ArrayList<>(rolled);
