@@ -19,12 +19,14 @@ import static com.jstampfli.dierolegame.UserPick.highest;
 
 public class DGame extends AppCompatActivity {
 
-    int rolled=10;
-    int picked=5;
-    static TextView dSpace;
+    static int rolled=10;
+    static int picked=5;
+    String computerRoll="";
+    TextView dSpace;
     EditText dNum;
     EditText dNumPick;
-    List<Integer> dValue = new ArrayList<>(rolled);
+    static List<Integer> dValue = new ArrayList<>(rolled);
+    static List<Integer> cValue = new ArrayList<>(rolled);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +35,21 @@ public class DGame extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dSpace= (TextView) findViewById(R.id.textView);
-        dSpace.setTextSize(30);
+        dSpace.setTextSize(20);
+
         dNum = (EditText) findViewById(R.id.dice);
+        dNum.setTextSize(30);
+
         dNumPick = (EditText) findViewById(R.id.dPick);
+        dNumPick.setTextSize(30);
     }
 
     public void onClick(View v){
         dValue.clear();
+        cValue.clear();
         dSpace.setText("");
         highest=0;
+        computerRoll="";
 
         try{
             rolled=Integer.parseInt(dNum.getText().toString());
@@ -65,10 +73,27 @@ public class DGame extends AppCompatActivity {
             dSpace.setText(dSpace.getText()+String.valueOf(random)+" ");
             dValue.add(random);
         }
+        for(int y=0; y<rolled; y++){
+            int random=(int)(Math.random()*6+1);
+            computerRoll=computerRoll+String.valueOf(random)+" ";
+            cValue.add(random);
+        }
 
-        List<Integer> empty = Arrays.asList(new Integer[picked]);
-        genPossiblities(dValue, picked, 0, empty);
-        dSpace.setText(dSpace.getText()+"\n\n"+groupP+": "+String.valueOf(highest));
+        for(int i=0; i<2; i++){
+            highest=0;
+            groupP="";
+
+            List<Integer> empty = Arrays.asList(new Integer[picked]);
+
+            if(i==0){
+                genPossiblities(dValue, picked, 0, empty);
+                dSpace.setText("Players Values:\n"+dSpace.getText()+"\n\n"+groupP+": "+String.valueOf(highest));
+            }
+            else{
+                genPossiblities(cValue, picked, 0, empty);
+                dSpace.setText(dSpace.getText()+"\n\n"+"Computer's Values:"+"\n"+computerRoll+"\n\n"+groupP+": "+String.valueOf(highest));
+            }
+        }
     }
 
 }
