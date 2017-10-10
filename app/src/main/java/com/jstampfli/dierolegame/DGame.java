@@ -26,7 +26,10 @@ public class DGame extends AppCompatActivity {
 
     int pScore=0;
     int cScore=0;
+    int tie=0;
     String score;
+
+    View help;
 
     static int pWinner=0;
     static int cWinner=0;
@@ -53,13 +56,19 @@ public class DGame extends AppCompatActivity {
         cScore=0;
     }
 
+    public void onClickFifty(View view){
+        for(int i=0; i<51; i++){
+            onClick(help);
+        }
+    }
+
     public void onClick(View v){
         dValue.clear();
         cValue.clear();
         dSpace.setText("");
         highest=0;
         computerRoll="";
-        score=String.valueOf(pScore)+" : "+String.valueOf(cScore);
+        score=String.valueOf(pScore)+" : "+String.valueOf(cScore)+" : "+String.valueOf(tie);
 
         try{
             rolled=Integer.parseInt(dNum.getText().toString());
@@ -129,6 +138,7 @@ public class DGame extends AppCompatActivity {
         }
         else if(pWinner==cWinner){
             dSpace.setText(dSpace.getText()+"\n\nThe Player and The Computer Tied!");
+            tie++;
         }
         else{
             dSpace.setText(dSpace.getText()+"\n\nThe Computer Won!");
