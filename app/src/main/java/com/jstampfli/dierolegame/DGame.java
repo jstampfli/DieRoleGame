@@ -1,5 +1,6 @@
 package com.jstampfli.dierolegame;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,9 +58,30 @@ public class DGame extends AppCompatActivity {
     }
 
     public void onClickFifty(View view){
-        for(int i=0; i<51; i++){
+        try{
+            rolled=Integer.parseInt(dNumPick.getText().toString());
+            if(rolled>10){
+                rolled=10;
+                dNum.setText(String.valueOf(rolled));
+                picked=rolled-1;
+                dNumPick.setText(String.valueOf(picked));
+            }
+        }
+        catch(NumberFormatException e){
+            rolled=10;
+            dNum.setText(String.valueOf(rolled));
+            picked=rolled-1;
+            dNumPick.setText(String.valueOf(picked));
+        }
+
+        for(int i=0; i<50; i++){
             onClick(help);
         }
+    }
+
+    public void reset(View view){
+        finish();
+        startActivity(new Intent(DGame.this, DGame.class));
     }
 
     public void onClick(View v){
@@ -68,32 +90,32 @@ public class DGame extends AppCompatActivity {
         dSpace.setText("");
         highest=0;
         computerRoll="";
-        score=String.valueOf(pScore)+" : "+String.valueOf(cScore)+" : "+String.valueOf(tie);
 
         try{
             rolled=Integer.parseInt(dNum.getText().toString());
             if(rolled<2){
                 rolled=10;
-                dNum.setText("10");
+                dNum.setText(String.valueOf(rolled));
             }
             if(rolled>20){
                 rolled=20;
-                dNum.setText("20");
+                dNum.setText(String.valueOf(rolled));
             }
         }
         catch(NumberFormatException e){
-
+            rolled=10;
+            dNum.setText(String.valueOf(rolled));
         }
 
         try{
             picked = Integer.parseInt(dNumPick.getText().toString());
             if(picked<1){
                 picked=1;
-                dNumPick.setText("1");
+                dNumPick.setText(String.valueOf(picked));
             }
             if(picked>19){
                 picked=19;
-                dNumPick.setText("19");
+                dNumPick.setText(String.valueOf(picked));
             }
             if(picked>=rolled){
                 picked=rolled-1;
@@ -101,7 +123,8 @@ public class DGame extends AppCompatActivity {
             }
         }
         catch(NumberFormatException e){
-
+            picked=5;
+            dNumPick.setText(String.valueOf(picked));
         }
 
         for(int y=0;y<rolled; y++){
@@ -144,6 +167,7 @@ public class DGame extends AppCompatActivity {
             dSpace.setText(dSpace.getText()+"\n\nThe Computer Won!");
             cScore++;
         }
+        score=String.valueOf(pScore)+" : "+String.valueOf(cScore)+" : "+String.valueOf(tie);
         dSpace.setText("The score is "+score+"\n\n"+dSpace.getText());
     }
 
