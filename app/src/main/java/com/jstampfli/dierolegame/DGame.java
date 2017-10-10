@@ -14,6 +14,7 @@ import java.util.List;
 import static com.jstampfli.dierolegame.DArray.sum;
 import static com.jstampfli.dierolegame.UserPick.CalcDieTotal;
 import static com.jstampfli.dierolegame.UserPick.genPossiblities;
+import static com.jstampfli.dierolegame.UserPick.groupP;
 import static com.jstampfli.dierolegame.UserPick.highest;
 
 public class DGame extends AppCompatActivity {
@@ -67,7 +68,7 @@ public class DGame extends AppCompatActivity {
 
         List<Integer> empty = Arrays.asList(new Integer[picked]);
         genPossiblities(dValue, picked, 0, empty);
-        dSpace.setText(dSpace.getText()+": "+String.valueOf(highest));
+        dSpace.setText(dSpace.getText()+"\n\n"+groupP+": "+String.valueOf(highest));
     }
 
 }

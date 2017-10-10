@@ -13,6 +13,7 @@ import static com.jstampfli.dierolegame.DGame.dSpace;
 
 public class UserPick {
 
+    static String groupP;
     static int highest=0;
 
     public static void CalcDieTotal(List<Integer> sList){
@@ -29,7 +30,7 @@ public class UserPick {
         }
         if(sum>highest){
             highest=sum;
-            dSpace.setText(dSpace.getText()+"\n\n"+String.valueOf(sList));
+            groupP=String.valueOf(sList);
         }
 
     }
