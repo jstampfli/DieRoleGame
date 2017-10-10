@@ -86,7 +86,7 @@ public class DGame extends AppCompatActivity {
                 picked=19;
                 dNumPick.setText("19");
             }
-            if(picked>rolled){
+            if(picked>=rolled){
                 picked=rolled-1;
                 dNumPick.setText(String.valueOf(picked));
             }
