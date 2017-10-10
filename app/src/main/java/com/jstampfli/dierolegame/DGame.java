@@ -32,6 +32,7 @@ public class DGame extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dSpace= (TextView) findViewById(R.id.textView);
+        dSpace.setTextSize(30);
         dNum = (EditText) findViewById(R.id.dice);
         dNumPick = (EditText) findViewById(R.id.dPick);
     }
