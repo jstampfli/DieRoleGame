@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jstampfli.dierolegame.DArray.sum;
-import static com.jstampfli.dierolegame.UserPick.CalcDieTotal;
 import static com.jstampfli.dierolegame.UserPick.genPossiblities;
 import static com.jstampfli.dierolegame.UserPick.groupP;
 import static com.jstampfli.dierolegame.UserPick.highest;
@@ -25,6 +23,14 @@ public class DGame extends AppCompatActivity {
     TextView dSpace;
     EditText dNum;
     EditText dNumPick;
+
+    int pScore=0;
+    int cScore=0;
+    String score;
+
+    static int pWinner=0;
+    static int cWinner=0;
+
     static List<Integer> dValue = new ArrayList<>(rolled);
     static List<Integer> cValue = new ArrayList<>(rolled);
 
@@ -38,10 +44,13 @@ public class DGame extends AppCompatActivity {
         dSpace.setTextSize(20);
 
         dNum = (EditText) findViewById(R.id.dice);
-        dNum.setTextSize(30);
+        dNum.setTextSize(20);
 
         dNumPick = (EditText) findViewById(R.id.dPick);
-        dNumPick.setTextSize(30);
+        dNumPick.setTextSize(20);
+
+        pScore=0;
+        cScore=0;
     }
 
     public void onClick(View v){
@@ -50,22 +59,40 @@ public class DGame extends AppCompatActivity {
         dSpace.setText("");
         highest=0;
         computerRoll="";
+        score=String.valueOf(pScore)+" : "+String.valueOf(cScore);
 
         try{
             rolled=Integer.parseInt(dNum.getText().toString());
             if(rolled<2){
                 rolled=10;
+                dNum.setText("10");
+            }
+            if(rolled>20){
+                rolled=20;
+                dNum.setText("20");
             }
         }
         catch(NumberFormatException e){
-            rolled=10;
+
         }
 
         try{
             picked = Integer.parseInt(dNumPick.getText().toString());
+            if(picked<1){
+                picked=1;
+                dNumPick.setText("1");
+            }
+            if(picked>19){
+                picked=19;
+                dNumPick.setText("19");
+            }
+            if(picked>rolled){
+                picked=rolled-1;
+                dNumPick.setText(String.valueOf(picked));
+            }
         }
         catch(NumberFormatException e){
-            picked=5;
+
         }
 
         for(int y=0;y<rolled; y++){
@@ -87,13 +114,27 @@ public class DGame extends AppCompatActivity {
 
             if(i==0){
                 genPossiblities(dValue, picked, 0, empty);
+                pWinner=highest;
                 dSpace.setText("Players Values:\n"+dSpace.getText()+"\n\n"+groupP+": "+String.valueOf(highest));
             }
             else{
                 genPossiblities(cValue, picked, 0, empty);
+                cWinner=highest;
                 dSpace.setText(dSpace.getText()+"\n\n"+"Computer's Values:"+"\n"+computerRoll+"\n\n"+groupP+": "+String.valueOf(highest));
             }
         }
+        if(pWinner>cWinner){
+            dSpace.setText(dSpace.getText()+"\n\nThe Player Won!");
+            pScore++;
+        }
+        else if(pWinner==cWinner){
+            dSpace.setText(dSpace.getText()+"\n\nThe Player and The Computer Tied!");
+        }
+        else{
+            dSpace.setText(dSpace.getText()+"\n\nThe Computer Won!");
+            cScore++;
+        }
+        dSpace.setText("The score is "+score+"\n\n"+dSpace.getText());
     }
 
 }

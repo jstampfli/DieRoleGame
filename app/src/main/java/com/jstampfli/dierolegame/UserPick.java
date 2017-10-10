@@ -3,9 +3,6 @@ package com.jstampfli.dierolegame;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jstampfli.dierolegame.DGame.dValue;
-import static com.jstampfli.dierolegame.DGame.picked;
-
 /**
  * Created by User1 on 10/8/2017.
  */
@@ -13,15 +10,7 @@ import static com.jstampfli.dierolegame.DGame.picked;
 public class UserPick {
 
     static String groupP;
-    static String groupC;
     static int highest=0;
-
-    /*public static void compete(){
-        List<Integer> empty = Arrays.asList(new Integer[picked]);
-        for(int i=0; i<2; i++){
-            genPossiblities(dValue, picked, 0, empty);
-        }
-    }*/
 
     public static void CalcDieTotal(List<Integer> sList){
         int sum=0;

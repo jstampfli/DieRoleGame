@@ -14,7 +14,7 @@
         android:text="Roll"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="385dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="19dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -26,7 +26,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_above="@+id/dPick" />
 
     <EditText
         android:id="@+id/dice"
@@ -37,9 +38,10 @@
         android:hint="How many dice should be rolled?"
         tools:layout_editor_absoluteX="83dp"
         tools:layout_editor_absoluteY="318dp"
+        android:layout_marginBottom="11dp"
         android:layout_above="@+id/roll"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/dPick"
@@ -47,8 +49,9 @@
         android:hint="How man dice should be picked?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dice"
-        android:layout_alignStart="@+id/dice"
-        android:layout_below="@+id/textView"
-        android:ems="10" />
+        android:ems="10"
+        android:layout_above="@+id/dice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp" />
 </RelativeLayout>
