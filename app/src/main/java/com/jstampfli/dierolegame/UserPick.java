@@ -3,6 +3,8 @@ package com.jstampfli.dierolegame;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.jstampfli.dierolegame.DGame.selectedDieValue;
+
 /**
  * Created by User1 on 10/8/2017.
  */
@@ -14,7 +16,7 @@ public class UserPick {
 
     public static void CalcDieTotal(List<Integer> sList){
         int sum=0;
-        List<Integer> num = Arrays.asList(new Integer[7]);
+        List<Integer> num = Arrays.asList(new Integer[selectedDieValue+1]);
         for(int i=0; i<num.size(); i++){
             num.set(i,0);
         }

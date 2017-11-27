@@ -5,11 +5,15 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.jstampfli.dierolegame.UserPick.genPossiblities;
@@ -20,7 +24,6 @@ public class DGame extends AppCompatActivity {
 
     static int rolled=10;
     static int picked=5;
-    String computerRoll="";
     TextView dSpace;
     EditText dNum;
     EditText dNumPick;
@@ -37,6 +40,13 @@ public class DGame extends AppCompatActivity {
 
     static List<Integer> dValue = new ArrayList<>(rolled);
     static List<Integer> cValue = new ArrayList<>(rolled);
+    static List<Integer> tPlayerValues = new ArrayList<>();
+    static List<Integer> tComputerValues = new ArrayList<>();
+
+    Spinner spinner;
+    ArrayAdapter spinnerAdapter;
+
+    static int selectedDieValue=6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +65,23 @@ public class DGame extends AppCompatActivity {
 
         pScore=0;
         cScore=0;
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_dice, R.layout.spinner_layout);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String temp = String.valueOf(parent.getItemAtPosition(position));
+                selectedDieValue = Integer.parseInt(temp.substring(1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedDieValue=6;
+            }
+        });
     }
 
     public void onClickFifty(View view){
@@ -90,9 +117,10 @@ public class DGame extends AppCompatActivity {
     public void onClick(View v){
         dValue.clear();
         cValue.clear();
+        tComputerValues.clear();
+        tPlayerValues.clear();
         dSpace.setText("");
         highest=0;
-        computerRoll="";
 
         try{
             rolled=Integer.parseInt(dNum.getText().toString());
@@ -131,15 +159,21 @@ public class DGame extends AppCompatActivity {
         }
 
         for(int y=0;y<rolled; y++){
-            int random = (int)(Math.random()*6+1);
-            dSpace.setText(dSpace.getText()+String.valueOf(random)+" ");
+            int random = (int)(Math.random()*selectedDieValue+1);
+            //dSpace.setText(dSpace.getText()+String.valueOf(random)+" ");
+            tPlayerValues.add(random);
             dValue.add(random);
         }
+        Collections.sort(tPlayerValues);
+        Collections.sort(dValue);
+
         for(int y=0; y<rolled; y++){
-            int random=(int)(Math.random()*6+1);
-            computerRoll=computerRoll+String.valueOf(random)+" ";
+            int random=(int)(Math.random()*selectedDieValue+1);
+            tComputerValues.add(random);
             cValue.add(random);
         }
+        Collections.sort(cValue);
+        Collections.sort(tComputerValues);
 
         for(int i=0; i<2; i++){
             highest=0;
@@ -150,12 +184,12 @@ public class DGame extends AppCompatActivity {
             if(i==0){
                 genPossiblities(dValue, picked, 0, empty);
                 pWinner=highest;
-                dSpace.setText("Players Values:\n"+dSpace.getText()+"\n\n"+groupP+": "+String.valueOf(highest));
+                dSpace.setText("Players Values: "+String.valueOf(tPlayerValues)+"\n\n"+groupP+": "+String.valueOf(highest));
             }
             else{
                 genPossiblities(cValue, picked, 0, empty);
                 cWinner=highest;
-                dSpace.setText(dSpace.getText()+"\n\n"+"Computer's Values:"+"\n"+computerRoll+"\n\n"+groupP+": "+String.valueOf(highest));
+                dSpace.setText(dSpace.getText()+"\n\n"+"Computer's Values: "+String.valueOf(tComputerValues)+"\n\n"+groupP+": "+String.valueOf(highest));
             }
         }
         if(pWinner>cWinner){

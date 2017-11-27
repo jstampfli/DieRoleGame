@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">DieRoleGame</string>
+    <string-array name="spinner_dice">
+        <item>D2</item>
+        <item>D3</item>
+        <item>D4</item>
+        <item>D5</item>
+        <item>D6</item>
+        <item>D7</item>
+        <item>D8</item>
+        <item>D10</item>
+        <item>D11</item>
+        <item>D12</item>
+        <item>D13</item>
+        <item>D17</item>
+        <item>D19</item>
+        <item>D20</item>
+        <item>D25</item>
+        <item>D50</item>
+        <item>D100</item>
+        <item>D537</item>
+        <item>D1500</item>
+        <item>D10000</item>
+    </string-array>
 </resources>
